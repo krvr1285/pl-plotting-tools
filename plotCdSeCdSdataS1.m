@@ -152,12 +152,11 @@ hold on
 
 p2=plot(S11(:,1),S11corr,S12(:,1),S12corr,S13(:,1),S13corr);
 %Find peaks, raw data
-[~,locsS11]=findpeaks(S11corr,'MinPeakDistance',200);
-[~,locsS12]=findpeaks(S12corr,'MinPeakDistance',200);
-[~,locsS13]=findpeaks(S13corr,'MinPeakDistance',200);
+[~,locsS11]=findpeaks(S11corr,'MinPeakDistance',250);
+[~,locsS12]=findpeaks(S12corr,'MinPeakDistance',250);
+[~,locsS13]=findpeaks(S13corr,'MinPeakDistance',250);
 
-p2b = plot(S11(locsS11,1),S11corr(locsS11),S12(locsS12,1),S12corr(locsS12),S13(locsS13,1),...
-S13corr(locsS13),S12(locsS12,1));
+p2b = plot(S11(locsS11,1),S11corr(locsS11),S12(locsS12,1),S12corr(locsS12),S13(locsS13,1),S13corr(locsS13));
 %Change plotting parameters of plot2 and plot2b (figure data and peak
 %finding)
 
@@ -181,7 +180,7 @@ for k=1:length(fits)
 end   
 
 p1=legend('S1_1','S1_2','S1_3');
-%axis([550 700 0 14e5])
+axis([500 675 0 14e6])
 xlabel('Wavelength (nm)')
 ylabel('CPS')
 
@@ -193,47 +192,42 @@ print(gcf, '-dtiff', '-r500', 'Fig6.tiff')
 
 hold off
 
-% %% Fig 6 Plot I0/I vs AA concentration
-% %Use results of "findpeaks" for I 
-% figure(6)
-% hold on
-% locsS21=85;
-% S1I0=S11corr(locsS11);
-% S2I0=S21corr(locsS21);
-% 
-% I0 = [S1I0/S11corr(locsS11) S1I0/S12corr(locsS12) S1I0/S13corr(locsS13);...
-%     S2I0/S21corr(locsS21) S2I0/S22corr(locsS22) S2I0/S23corr(locsS23)];
-% AAconc = [0 0.05 0.1];
-% 
-% for k=1:3
-%     p4(k)= plot(AAconc(k),I0(1,k),'Marker','x','MarkerSize',5,'Color','r');
-%     p5(k)=plot(AAconc(k),I0(2,k),'Marker','*','MarkerSize',5,'Color','b');
-%     k=k+1;
-% end
-% 
-% %Fit a line to data sets
-% for k=1:2
-%     coeffs(k,:) = polyfit(AAconc, I0(k,:), 1);
-%     % Get fitted values
-%     fittedX = linspace(min(AAconc), max(AAconc), 200);
-%     fittedY = polyval(coeffs(k,:), fittedX);
-%     % Plot the fitted line
-%     plot(fittedX, fittedY, 'k', 'LineWidth', 0.5);
-%     
-% end
-% labels={'Sample 1' 'slope' num2str(round(coeffs(1,1),2)) 'yint' num2str(round(coeffs(1,2),2));...
-%     'Sample 2' 'slope' num2str(round(coeffs(2,1),2)) 'yint' num2str(round(coeffs(2,2),2))};
-% labelS1=strjoin(labels(1,:));
-% labelS2=strjoin(labels(2,:));
-% %legend('Sample 1','Sample 2');
-% legend(labelS1,labelS2);
-% xlabel('[Ascorbate], M');
-% ylabel('I_0/I');
-% 
-% %specify export size so it looks ok in Word etc
-% fig = gcf;
-% fig.PaperUnits = 'inches';
-% fig.PaperPosition = [0 0 5 3];
-% print(gcf, '-dtiff', '-r500', 'Fig7.tiff')
-% 
-% hold off
+%% Fig 6 Plot I0/I vs AA concentration
+%Use results of "findpeaks" for I 
+figure(6)
+hold on
+
+S1I0=S11corr(locsS11);
+
+I0 = [S1I0/S11corr(locsS11) S1I0/S12corr(locsS12) S1I0/S13corr(locsS13)];
+AAconc = [0 0.05 0.1];
+
+for k=1:3
+    p4(k)= plot(AAconc(k),I0(1,k),'Marker','x','MarkerSize',5);
+    k=k+1;
+end
+
+%Fit a line to data sets
+for k=1:1
+    coeffs(k,:) = polyfit(AAconc, I0(k,:), 1);
+    % Get fitted values
+    fittedX = linspace(min(AAconc), max(AAconc), 200);
+    fittedY = polyval(coeffs(k,:), fittedX);
+    % Plot the fitted line
+    plot(fittedX, fittedY, 'k', 'LineWidth', 0.5);
+    
+end
+labels={'Sample 1' 'slope' num2str(round(coeffs(1,1),2)) 'yint' num2str(round(coeffs(1,2),2))};
+labelS1=strjoin(labels(1,:));
+
+legend(labelS1);
+xlabel('[Ascorbate], M');
+ylabel('I_0/I');
+
+%specify export size so it looks ok in Word etc
+fig = gcf;
+fig.PaperUnits = 'inches';
+fig.PaperPosition = [0 0 5 3];
+print(gcf, '-dtiff', '-r500', 'Fig7.tiff')
+
+hold off
