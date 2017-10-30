@@ -209,13 +209,12 @@ p2=plot(S11(:,1),S11corr,S12(:,1),S12corr,S13(:,1),S13corr,S21(:,1),S21corr,...
 [~,locsS23]=findpeaks(S23corr,'MinPeakDistance',300);
 
 p2b = plot(S11(locsS11,1),S11corr(locsS11),S12(locsS12,1),S12corr(locsS12),S13(locsS13,1),...
-S13corr(locsS13),S12(locsS21,1),S21corr(locsS21),S21(locsS22,1),S22corr(locsS22),S23(locsS23,1),S23corr(locsS23));
+S13corr(locsS13),S21(locsS21,1),S21corr(locsS21),S21(locsS21,1),S22corr(locsS22),S23(locsS23,1),S23corr(locsS23));
 %Change plotting parameters of plot2 and plot2b (figure data and peak
 %finding)
 
 for k=1:length(p2)
-    p2(k).Marker='x';
-    p2(k).MarkerSize=2;
+    p2(k).LineWidth=2;
     p2b(k).Marker='*';
     p2b(k).MarkerSize=3;
     k=k+1;

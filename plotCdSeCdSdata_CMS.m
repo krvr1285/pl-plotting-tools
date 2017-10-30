@@ -1,7 +1,7 @@
 % Plot CdSe/CdS PL and UV-vis data
 close all
 %delete(findall(0,'Type','figure'))
-
+cd '/Users/Kristina/Google Drive/Dukovic group/Data/PL/171012'
 %% Importing all files
 %CdSe/CdS in toluene
     %Em 1 (450 nm)
