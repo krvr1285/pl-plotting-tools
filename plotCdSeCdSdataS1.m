@@ -9,6 +9,7 @@ fullpath1=strcat(path1,directory);
 fullpath2=strcat(path2,directory);
 cd(fullpath1)
 
+
 %% Importing all files
 %Sample 1 Emission
     S11=dlmread('1_1.txt','',2,0);
@@ -24,7 +25,7 @@ cd(fullpath1)
     S02=dlmread('0_2.txt','',2,0);
     S03=dlmread('0_3.txt','',2,0);
     %Excitation scan
-%     S01ex=dlmread('0_1ex','',3,0);
+%     S01ex=dlmread('0_1ex.txt','',3,0);
 %     S02ex=dlmread('0_2ex.txt','',3,0);
 %     S03ex=dlmread('0_3ex.txt','',3,0);
 
@@ -173,9 +174,9 @@ for k=1:length(p2)
     p2b(k).MarkerSize=3;
     k=k+1;
 end
-%Fit peaks to a gaussian (gauss2) and put fits into a cell
-fits={fit(S11(27:127,1),S11corr(27:127),'gauss2') fit(S12(27:127,1),S12corr(27:127),'gauss2'),...
-    fit(S13(27:127,1),S13corr(27:127),'gauss2')};
+%Fit peaks to a gaussian (gauss1) and put fits into a cell
+fits={fit(S11(27:127,1),S11corr(27:127),'gauss1') fit(S12(27:127,1),S12corr(27:127),'gauss1'),...
+    fit(S13(27:127,1),S13corr(27:127),'gauss1')};
 % plot fits
 
 for k=1:length(fits)
@@ -187,7 +188,7 @@ for k=1:length(fits)
 end   
 
 p1=legend('S1_1','S1_2','S1_3');
-axis([500 675 0 14e6])
+xlim([500 675])
 xlabel('Wavelength (nm)')
 ylabel('CPS')
 
