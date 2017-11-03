@@ -1,7 +1,13 @@
 % Plot PL and UV-vis data, 1 sample no excitation data
 close all
 
-cd '/Users/Kristina/Google Drive/Dukovic group/Data/PL/171027'
+%Change directory
+directory=input('What is the folder? ','s');
+path1 = '/Users/Kristina/Google Drive/Dukovic group/Data/PL/';
+path2 = '/Users/Kristina/Google Drive/Dukovic group/Data/UV-vis/';
+fullpath1=strcat(path1,directory);
+fullpath2=strcat(path2,directory);
+cd(fullpath1)
 
 %% Importing all files
 %Sample 1 Emission
@@ -15,7 +21,8 @@ cd '/Users/Kristina/Google Drive/Dukovic group/Data/PL/171027'
     S03=dlmread('0_3.txt','',2,0);
     
 %UV-vis data
-cd '/Users/Kristina/Google Drive/Dukovic group/Data/UV-vis/171027'
+cd(fullpath2)
+
 S11uv= csvread('1_1.csv',3,0);
 S12uv = csvread('1_2.csv',3,0);
 S13uv= csvread('1_3.csv',3,0);
@@ -23,7 +30,7 @@ S13uv= csvread('1_3.csv',3,0);
 %S01uv=csvread('0_1.csv',3,0);
 S02uv=csvread('0_2.csv',3,0);
 S03uv=csvread('0_3.csv',3,0);
-cd '/Users/Kristina/Google Drive/Dukovic group/Data/PL/171027'
+cd(fullpath1)
 
 %% Background correction
 %Sample 1 Emission
