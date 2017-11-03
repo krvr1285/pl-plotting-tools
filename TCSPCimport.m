@@ -1,38 +1,49 @@
 %% TCSPC data import and plot
 
 close all
+
 %Change directory
-cd '/Users/Kristina/Google Drive/Dukovic group/Data/TCSPC/171026'
+directory=input('What is the folder? ','s');
+path = '/Users/Kristina/Google Drive/Dukovic group/Data/TCSPC/';
+fullpath=strcat(path,directory);
+cd(fullpath)
 
 %Import data
-%filenames = ['s11b.csv','1_2.csv','1_3.csv'];
-numfiles=4;
-S11 = csvread('s11b.csv',1,0);
-S11b=csvread('1_1.csv',1,0);
-S12 = csvread('1_2.csv',1,0);
-S13 = csvread('1_3.csv',1,0);
-%S21 = csvread(filenames(4,:),1,0);
+% Can also use matrix of filenames?
+S01=csvread('0_1.csv',1,0);
+S02=csvread('0_2.csv',1,0);
+S03=csvread('0_3.csv',1,0);
+S11=csvread('1_1.csv',1,0);
+S12=csvread('1_2.csv',1,0);
+S13=csvread('1_3.csv',1,0);
 
-%adjust time scales if necessary
-S11(:,1)=(S11(:,1)/10^3); %converts ns to us
+IRF=csvread('IRF.csv',1,0);
 
-%Plot all data
+filenum=7;
+
+%Graph all assuming common time range?
 figure(1)
 hold on
-pl=plot(S11(:,1),S11(:,2),S11b(:,1),S11b(:,2),S12(:,1),S12(:,2),S13(:,1),S13(:,2));
 
-for k=1:numfiles
-    pl(k).Marker='*';
-    pl(k).LineStyle='none';
-    pl(k).Marker='*';
-    pl(k).MarkerSize = 1;
+p1 = plot(S01(:,1),S01(:,2),S02(:,1),S02(:,2),S03(:,1),S03(:,2),...
+    S11(:,1),S11(:,2),S12(:,1),S12(:,2),S13(:,1),S13(:,2),IRF(:,1),IRF(:,2));
+
+for k=1:filenum
+    p1(k).LineStyle='none';
+    p1(k).Marker='*';
+    p1(k).MarkerSize=3;
     k=k+1;
-end 
-set(gca,'YScale','log')
+end
 
-xlabel('Time (us)');
-ylabel('Counts');
-legend('S1-1','S1-1b','S1-2','S1-3');
+set(gca,'YScale','log')
+xlabel('Time (ns)')
+ylabel('Counts')
+legend('S0-1','S0-2','S0-3','S1-1','S1-2','S1-3','IRF')
+
+%set axis range
+xmin=input('What is x min?');
+xmax=input('What is x max?');
+axis([xmin xmax 0 10^5])
 
 %specify export size so it looks ok in Word etc
 fig = gcf;
@@ -41,28 +52,3 @@ fig.PaperPosition = [0 0 5 3];
 print(gcf, '-dtiff', '-r500', 'Fig1.tiff')
 
 hold off
-% %%
-% figure(2)
-% hold on
-% pl=plot(S21(:,1),S21(:,2));
-% 
-% for k=1:1
-%     pl(k).Marker='*';
-%     pl(k).LineStyle='none';
-%     pl(k).Marker='*';
-%     pl(k).MarkerSize = 1;
-%     k=k+1;
-% end 
-% set(gca,'YScale','log')
-% axis([0 0.8 1 10^5])
-% xlabel('Time (us)');
-% ylabel('Counts');
-% legend('S1-1');
-% 
-% %specify export size so it looks ok in Word etc
-% fig = gcf;
-% fig.PaperUnits = 'inches';
-% fig.PaperPosition = [0 0 5 3];
-% print(gcf, '-dtiff', '-r500', 'Fig2.tiff')
-% 
-% hold off
