@@ -27,18 +27,15 @@ cd(fullpath1)
     S22ex=dlmread('2_2ex.txt','',3,0);
     S23ex=dlmread('2_3ex.txt','',3,0);   
 %Background scans
+    S01=dlmread('0_1.txt','',3,0);
     S02=dlmread('0_2.txt','',3,0);
     S03=dlmread('0_3.txt','',3,0);
-    %612 n m
-    S02ex1=dlmread('0_2ex1.txt','',3,0);
-    S03ex1=dlmread('0_3ex1.txt','',3,0);
-    %609 nm
-    S02ex2=dlmread('0_2ex2.txt','',3,0);
-    S03ex2=dlmread('0_3ex2.txt','',3,0);
-    %this background scan was copied from data from 171012
-    S01 = dlmread('bufferem450.txt','',3,0);
-    S01ex2 = dlmread('bufferex609.txt','',3,0);
     
+    S01ex=dlmread('0_2ex.txt','',3,0);
+    S02ex=dlmread('0_2ex.txt','',3,0);
+    S03ex=dlmread('0_3ex.txt','',3,0);
+   
+
 %UV-vis data
 cd(fullpath2)
 
@@ -70,11 +67,11 @@ cd(fullpath1)
     %Excitation
     S21excorr=S21ex(:,2)-S01ex2(:,2); %Don't have a 612 nm scan for the buffer ex
     S22excorr=S22ex(:,2)-S02ex1(:,2);
-    S23excorr=S23ex(:,2)-S03ex1(:,2);
+    S23excorr=S23ex(:,2)-S03ex(:,2);
 
 %% UV vis correction
 %S1
-S11uvcorr=S11uv(:,2)-S01uv(:,2);
+S11uvcorr=S11uv(:,2)%-S01uv(:,2);
 S12uvcorr=S12uv(:,2)-S02uv(:,2);
 S13uvcorr=S13uv(:,2)-S03uv(:,2);
 %S2
