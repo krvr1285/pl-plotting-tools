@@ -22,8 +22,8 @@ cd(fullpath1)
     
 %Background scans
     S01=dlmread('0_1.txt','',2,0);
-    S02=dlmread('0_2.txt','',2,0);
-    S03=dlmread('0_3.txt','',2,0);
+%     S02=dlmread('0_2.txt','',2,0);
+%     S03=dlmread('0_3.txt','',2,0);
     %Excitation scan
 %     S01ex=dlmread('0_1ex.txt','',3,0);
 %     S02ex=dlmread('0_2ex.txt','',3,0);
@@ -37,16 +37,16 @@ S12uv = csvread('1_2.csv',3,0);
 S13uv= csvread('1_3.csv',3,0);
 
 %S01uv=csvread('0_1.csv',3,0);
-S02uv=csvread('0_2.csv',3,0);
-S03uv=csvread('0_3.csv',3,0);
+% S02uv=csvread('0_2.csv',3,0);
+% S03uv=csvread('0_3.csv',3,0);
 
 cd(fullpath1)
 
 %% Background correction
 %Sample 1 Emission
     S11corr=S11(:,2)-S01(:,2);
-    S12corr=S12(:,2)-S02(:,2);
-    S13corr=S13(:,2)-S03(:,2);
+    S12corr=S12(:,2)%-S02(:,2);
+    S13corr=S13(:,2)%-S03(:,2);
     %Excitation
     S11excorr=S11ex(:,2); %-S01ex(:,2);
     S12excorr=S12ex(:,2); %- S02ex(:,2);
@@ -55,8 +55,8 @@ cd(fullpath1)
 %% UV vis correction
 %S1
 S11uvcorr=S11uv(:,2);%-S01uv(:,2);
-S12uvcorr=S12uv(:,2)-S02uv(:,2);
-S13uvcorr=S13uv(:,2)-S03uv(:,2);
+S12uvcorr=S12uv(:,2)%-S02uv(:,2);
+S13uvcorr=S13uv(:,2)%-S03uv(:,2);
 
 
 %% Fig 1 UV vis data
@@ -128,7 +128,7 @@ ylabel('CPS')
 fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 5 3];
-print(gcf, '-dtiff', '-r500', 'Fig4.tiff')
+print(gcf, '-dtiff', '-r500', 'Fig3.tiff')
 
 hold off
 
@@ -150,7 +150,7 @@ ylabel('CPS')
 fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 5 3];
-print(gcf, '-dtiff', '-r500', 'Fig5.tiff')
+print(gcf, '-dtiff', '-r500', 'Fig4.tiff')
 
 hold off
 
@@ -196,7 +196,7 @@ ylabel('CPS')
 fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 5 3];
-print(gcf, '-dtiff', '-r500', 'Fig6.tiff')
+print(gcf, '-dtiff', '-r500', 'Fig5.tiff')
 
 hold off
 
@@ -236,6 +236,6 @@ ylabel('I_0/I');
 fig = gcf;
 fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 5 3];
-print(gcf, '-dtiff', '-r500', 'Fig7.tiff')
+print(gcf, '-dtiff', '-r500', 'Fig6.tiff')
 
 hold off
